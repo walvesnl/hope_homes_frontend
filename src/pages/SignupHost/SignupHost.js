@@ -1,10 +1,13 @@
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import { countryList } from "../../countries";
+import { countryList } from "../../config/constants";
 import { Button } from "@mui/material";
 import "./styles.css";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { signUp } from "../../store/user/actions";
+import FormData from "form-data";
 
 export default function SignupHost() {
   const [getName, setName] = useState("");
@@ -15,8 +18,28 @@ export default function SignupHost() {
   const [getAddress, setAddress] = useState("");
   const [getCity, setCity] = useState("");
   const [getCountry, setCountry] = useState("Select a country");
+  const isHost = true;
 
+  const dispatch = useDispatch();
   console.log(getImage);
+
+  const submitForm = (event) => {
+    event.preventDefault();
+
+    dispatch(
+      signUp(
+        getName,
+        getEmail,
+        getPassword,
+        getImage,
+        getDescription,
+        getAddress,
+        getCity,
+        getCountry,
+        isHost
+      )
+    );
+  };
   return (
     <Box
       className="signup-form"
@@ -68,6 +91,7 @@ export default function SignupHost() {
           }}
         />
       </Button>
+      {getImage ? <p>{getImage.name}</p> : null}
       <TextField
         required
         id="standard-required"
@@ -100,11 +124,19 @@ export default function SignupHost() {
         sx={{ width: 300 }}
         value={getCountry}
         onChange={(e) => {
-          console.log(e.target.textContent);
           setCountry(e.target.textContent);
         }}
         renderInput={(params) => <TextField {...params} label="Country" />}
       />
+      <Button
+        variant="contained"
+        component="label"
+        style={{ width: 150 }}
+        type="Submit"
+        onClick={submitForm}
+      >
+        Submit
+      </Button>
     </Box>
   );
 }
