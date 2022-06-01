@@ -8,16 +8,16 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signUp } from "../../store/user/actions";
 
-export default function SignupHost() {
+export default function SignupSeeker() {
   const [getName, setName] = useState("");
   const [getEmail, setEmail] = useState("");
   const [getPassword, setPassword] = useState("");
   const [getImage, setImage] = useState(null);
   const [getDescription, setDescription] = useState("");
-  const [getAddress, setAddress] = useState("");
-  const [getCity, setCity] = useState("");
+  const getAddress = null;
+  const getCity = null;
   const [getCountry, setCountry] = useState("Select a country");
-  const isHost = true;
+  const isHost = false;
 
   const dispatch = useDispatch();
 
@@ -98,22 +98,7 @@ export default function SignupHost() {
         value={getDescription}
         onChange={(e) => setDescription(e.target.value)}
       />
-      <TextField
-        required
-        id="standard-required"
-        label="Address"
-        variant="standard"
-        value={getAddress}
-        onChange={(e) => setAddress(e.target.value)}
-      />
-      <TextField
-        required
-        id="standard-required"
-        label="City"
-        variant="standard"
-        value={getCity}
-        onChange={(e) => setCity(e.target.value)}
-      />
+
       <Autocomplete
         required
         disablePortal

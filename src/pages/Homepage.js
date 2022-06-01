@@ -9,7 +9,7 @@ export default function Homepage() {
       <Link to="/signuph">
         <Button variant="contained">SIGN UP AS HOST</Button>
       </Link>
-      <Link to="/signupr">
+      <Link to="/signups">
         <Button variant="contained">SIGN UP AS REFUGEE</Button>
       </Link>
     </div>
