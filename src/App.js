@@ -3,16 +3,30 @@ import Homepage from "./pages/Homepage";
 import { Routes, Route } from "react-router-dom";
 import SignupHost from "./pages/SignupHost/SignupHost";
 import SignupSeeker from "./pages/SignupSeeker/SignupSeeker";
-import NavBar from "./components/NavBar";
+import NavBarLoggedOut from "./components/NavBar/NavBarLoggedOut";
+import NavBarLoggedIn from "./components/NavBar/NavBarLoggedIn";
+import Login from "./pages/Login/Login";
+import { useDispatch, useSelector } from "react-redux";
+import { selectToken } from "./store/user/selectors";
+import { useEffect } from "react";
+import { getUserWithStoredToken } from "./store/user/actions";
 
 function App() {
+  const token = useSelector(selectToken);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserWithStoredToken());
+  }, [dispatch]);
+
   return (
     <div className="App">
-      <NavBar />
+      {token ? <NavBarLoggedIn /> : <NavBarLoggedOut />}
       <Routes>
         <Route exact path="/" element={<Homepage />} />
         <Route path="/signuph" element={<SignupHost />} />
         <Route path="/signups" element={<SignupSeeker />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </div>
   );

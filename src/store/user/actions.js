@@ -84,22 +84,8 @@ export const login = (email, password) => {
     } catch (error) {
       if (error.response) {
         console.log(error.response.data.message);
-        dispatch(
-          setMessage({
-            variant: "danger",
-            dismissable: true,
-            text: error.response.data.message,
-          })
-        );
       } else {
         console.log(error.message);
-        dispatch(
-          setMessage({
-            variant: "danger",
-            dismissable: true,
-            text: error.response.data.message,
-          })
-        );
       }
       dispatch(appDoneLoading());
     }

@@ -7,10 +7,10 @@ export default function Homepage() {
       <h1>Homepage</h1>
 
       <Link to="/signuph">
-        <Button variant="contained">SIGN UP AS HOST</Button>
+        <Button variant="contained">Host a refugee</Button>
       </Link>
       <Link to="/signups">
-        <Button variant="contained">SIGN UP AS REFUGEE</Button>
+        <Button variant="contained">Find a Hope Home</Button>
       </Link>
     </div>
   );
