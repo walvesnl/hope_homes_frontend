@@ -3,7 +3,6 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { countryList } from "../../config/constants";
 import { Button } from "@mui/material";
-import "./styles.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signUp } from "../../store/user/actions";
