@@ -4,9 +4,11 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { countryList } from "../../config/constants";
 import { Button } from "@mui/material";
 import "./styles.css";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "../../store/user/actions";
+import { useNavigate } from "react-router-dom";
+import { selectToken } from "../../store/user/selectors";
 
 export default function SignupHost() {
   const [getName, setName] = useState("");
@@ -20,6 +22,15 @@ export default function SignupHost() {
   const isHost = true;
 
   const dispatch = useDispatch();
+
+  const token = useSelector(selectToken);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (token !== null) {
+      navigate("/");
+    }
+  }, [token, navigate]);
 
   const submitForm = (event) => {
     event.preventDefault();

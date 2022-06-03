@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectToken } from "./store/user/selectors";
 import { useEffect } from "react";
 import { getUserWithStoredToken } from "./store/user/actions";
+import List from "./pages/List/List";
 
 function App() {
   const token = useSelector(selectToken);
@@ -27,6 +28,7 @@ function App() {
         <Route path="/signuph" element={<SignupHost />} />
         <Route path="/signups" element={<SignupSeeker />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/list" element={<List />} />
       </Routes>
     </div>
   );
