@@ -4,6 +4,7 @@ import { showMessageWithTimeout } from "../appState/actions";
 import { loginSuccess, logOut, tokenStillValid } from "./slice";
 import { API_URL } from "../../config/constants";
 import { selectToken } from "./selectors";
+import { clearList } from "../list/slice";
 
 export const signUp = (
   name,
@@ -119,6 +120,7 @@ export const getUserWithStoredToken = () => {
       // if we get a 4xx or 5xx response,
       // get rid of the token by logging out
       dispatch(logOut());
+      dispatch(clearList());
       dispatch(appDoneLoading());
     }
   };

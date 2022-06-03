@@ -12,11 +12,13 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../store/user/slice";
+import { clearList } from "../../store/list/slice";
+import { selectUser } from "../../store/user/selectors";
+import { API_URL } from "../../config/constants";
 
-const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const pages = ["Connections", "Find"];
 
 const NavBarLoggedIn = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -38,6 +40,7 @@ const NavBarLoggedIn = () => {
   };
 
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
 
   return (
     <AppBar position="static">
@@ -132,7 +135,10 @@ const NavBarLoggedIn = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Avatar" src="/static/images/avatar/2.jpg" />
+                <Avatar
+                  alt="Avatar"
+                  src={user ? `${API_URL}/${user.image}` : null}
+                />
               </IconButton>
             </Tooltip>
             <Menu
@@ -154,7 +160,12 @@ const NavBarLoggedIn = () => {
               <MenuItem onClick={handleCloseUserMenu}>
                 <Typography textAlign="center">Profile</Typography>
               </MenuItem>
-              <MenuItem onClick={() => dispatch(logOut())}>
+              <MenuItem
+                onClick={() => {
+                  dispatch(logOut());
+                  dispatch(clearList());
+                }}
+              >
                 <Typography textAlign="center">Logout</Typography>
               </MenuItem>
             </Menu>
