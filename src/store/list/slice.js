@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   list: [],
+  detail_list: null,
 };
 
 export const listSlice = createSlice({
@@ -14,9 +15,12 @@ export const listSlice = createSlice({
     clearList: (state, action) => {
       state.list = [];
     },
+    fetchOne: (state, action) => {
+      state.detail_list = action.payload;
+    },
   },
 });
 
-export const { fetchList, clearList } = listSlice.actions;
+export const { fetchList, clearList, fetchOne } = listSlice.actions;
 
 export default listSlice.reducer;

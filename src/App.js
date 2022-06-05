@@ -11,6 +11,7 @@ import { selectToken } from "./store/user/selectors";
 import { useEffect } from "react";
 import { getUserWithStoredToken } from "./store/user/actions";
 import List from "./pages/List/List";
+import ListDetails from "./pages/ListDetails/ListDetails";
 
 function App() {
   const token = useSelector(selectToken);
@@ -29,6 +30,7 @@ function App() {
         <Route path="/signups" element={<SignupSeeker />} />
         <Route path="/login" element={<Login />} />
         <Route path="/list" element={<List />} />
+        <Route path="/list/:id" element={<ListDetails />} />
       </Routes>
     </div>
   );
