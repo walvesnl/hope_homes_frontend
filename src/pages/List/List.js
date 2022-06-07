@@ -22,6 +22,7 @@ export default function List() {
           return (
             <ListCard
               key={l.id}
+              id={l.id}
               name={l.name}
               image={l.image}
               description={l.description}

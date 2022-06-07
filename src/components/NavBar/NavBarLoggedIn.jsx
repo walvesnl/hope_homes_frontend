@@ -17,6 +17,7 @@ import { logOut } from "../../store/user/slice";
 import { clearList } from "../../store/list/slice";
 import { selectUser } from "../../store/user/selectors";
 import { API_URL } from "../../config/constants";
+import { NavLink } from "react-router-dom";
 
 const pages = ["Connections", "Find"];
 
@@ -157,9 +158,14 @@ const NavBarLoggedIn = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">Profile</Typography>
-              </MenuItem>
+              <NavLink
+                to="/profile"
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">Profile</Typography>
+                </MenuItem>
+              </NavLink>
               <MenuItem
                 onClick={() => {
                   dispatch(logOut());

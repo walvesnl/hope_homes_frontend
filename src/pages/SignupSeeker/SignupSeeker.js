@@ -3,9 +3,11 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { countryList } from "../../config/constants";
 import { Button } from "@mui/material";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "../../store/user/actions";
+import { useNavigate } from "react-router-dom";
+import { selectToken } from "../../store/user/selectors";
 
 export default function SignupSeeker() {
   const [getName, setName] = useState("");
@@ -13,12 +15,20 @@ export default function SignupSeeker() {
   const [getPassword, setPassword] = useState("");
   const [getImage, setImage] = useState(null);
   const [getDescription, setDescription] = useState("");
-  const getAddress = null;
-  const getCity = null;
+  const getAddress = "";
+  const getCity = "";
   const [getCountry, setCountry] = useState("Select a country");
   const isHost = false;
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const token = useSelector(selectToken);
+
+  useEffect(() => {
+    if (token !== null) {
+      navigate("/");
+    }
+  }, [token, navigate]);
 
   const submitForm = (event) => {
     event.preventDefault();

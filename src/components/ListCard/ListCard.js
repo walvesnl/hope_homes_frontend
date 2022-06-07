@@ -6,6 +6,9 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { API_URL } from "../../config/constants";
+import { Button } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { newRequest } from "../../store/user/actions";
 
 const useStyles = makeStyles({
   root: {
@@ -20,6 +23,7 @@ const useStyles = makeStyles({
 
 export default function ListCard(props) {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   return (
     <Card className={classes.root}>
@@ -34,9 +38,13 @@ export default function ListCard(props) {
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings">
-            <FavoriteIcon />
-          </IconButton>
+          <Button
+            onClick={() => {
+              dispatch(newRequest(props.id));
+            }}
+          >
+            Contact request
+          </Button>
         }
         title={props.name}
         subheader={props.description}
