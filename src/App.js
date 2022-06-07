@@ -13,6 +13,7 @@ import { getUserWithStoredToken } from "./store/user/actions";
 import List from "./pages/List/List";
 import ListDetails from "./pages/ListDetails/ListDetails";
 import Profile from "./pages/Profile/Profile";
+import Connections from "./pages/Connections/Connections";
 
 function App() {
   const token = useSelector(selectToken);
@@ -33,6 +34,7 @@ function App() {
         <Route path="/list" element={<List />} />
         <Route path="/list/:id" element={<ListDetails />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/connections" element={<Connections />} />
       </Routes>
     </div>
   );
