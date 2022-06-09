@@ -7,7 +7,6 @@ import { API_URL } from "../../config/constants";
 import { Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { requestAccepted } from "../../store/user/actions";
 
 const useStyles = makeStyles({
   root: {
@@ -38,14 +37,7 @@ export default function RequestCard(props) {
         }
         action={
           <div>
-            <Button
-              onClick={() =>
-                dispatch(requestAccepted(props.id, props.name, props.image))
-              }
-            >
-              Accept
-            </Button>
-            <Button>Deny </Button>
+            <Button>Open</Button>
           </div>
         }
         title={
@@ -60,7 +52,6 @@ export default function RequestCard(props) {
             >
               {props.name}
             </NavLink>{" "}
-            wants to connect with you
           </div>
         }
       />

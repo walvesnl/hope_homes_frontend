@@ -1,9 +1,16 @@
 import { useSelector } from "react-redux";
-import { selectReceivedRequests } from "../../store/user/selectors";
+import {
+  selectConversations,
+  selectHost,
+  selectReceivedRequests,
+} from "../../store/user/selectors";
 import RequestCard from "../../components/RequestCard/RequestCard";
+import ConversationCard from "../../components/ConversationCard/ConversationCard";
 
 export default function Connections() {
   const requests = useSelector(selectReceivedRequests);
+  const conversations = useSelector(selectConversations);
+  const isHost = useSelector(selectHost);
 
   return (
     <div>
@@ -23,6 +30,38 @@ export default function Connections() {
             })
           ) : (
             <p>No requests received</p>
+          )}
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
+      {conversations !== null ? (
+        <div>
+          <h2>Conversations</h2>
+          {conversations.length !== 0 ? (
+            conversations.map((c) => {
+              if (isHost === true) {
+                return (
+                  <ConversationCard
+                    key={c.id}
+                    id={c.seekerId}
+                    name={c.seekerName}
+                    image={c.seekerImage}
+                  />
+                );
+              } else {
+                return (
+                  <ConversationCard
+                    key={c.id}
+                    id={c.hostId}
+                    name={c.hostName}
+                    image={c.hostImage}
+                  />
+                );
+              }
+            })
+          ) : (
+            <p>No conversations started</p>
           )}
         </div>
       ) : (
