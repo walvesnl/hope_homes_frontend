@@ -41,7 +41,7 @@ const NavBarLoggedOut = () => {
   const token = useSelector(selectToken);
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{ backgroundColor: "#ffcf36" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -115,7 +115,7 @@ const NavBarLoggedOut = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            HOPE HOMES
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (

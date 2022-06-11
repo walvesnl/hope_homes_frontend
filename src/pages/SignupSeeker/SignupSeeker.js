@@ -57,6 +57,7 @@ export default function SignupSeeker() {
       noValidate
       autoComplete="off"
     >
+      <h2>Sign up as a Home Seeker</h2>
       <TextField
         required
         id="standard-required"
@@ -87,18 +88,40 @@ export default function SignupSeeker() {
         }}
       />
 
-      <Button variant="contained" component="label" style={{ width: 150 }}>
-        Upload File
-        <input
-          type="file"
-          hidden
-          onChange={(e) => {
-            console.log(e.target.files[0]);
-            setImage(e.target.files[0]);
+      <p>Upload a profile picture</p>
+      {getImage === null ? (
+        <Button
+          variant="contained"
+          component="label"
+          style={{
+            width: 150,
+            fontFamily: "Merriweather",
+            backgroundColor: "#002366",
           }}
-        />
-      </Button>
-      {getImage ? <p>{getImage.name}</p> : null}
+        >
+          Upload File
+          <input
+            type="file"
+            hidden
+            onChange={(e) => {
+              console.log(e.target.files[0]);
+              setImage(e.target.files[0]);
+            }}
+          />
+        </Button>
+      ) : (
+        <div>
+          <p>{getImage.name}</p>
+          <Button
+            onClick={() => setImage(null)}
+            style={{
+              color: "#FF0000",
+            }}
+          >
+            Delete File
+          </Button>
+        </div>
+      )}
       <TextField
         required
         id="standard-required"
