@@ -44,7 +44,8 @@ export default function Connections() {
                 return (
                   <ConversationCard
                     key={c.id}
-                    id={c.seekerId}
+                    convId={c.id}
+                    userId={c.seekerId}
                     name={c.seekerName}
                     image={c.seekerImage}
                   />
@@ -53,7 +54,8 @@ export default function Connections() {
                 return (
                   <ConversationCard
                     key={c.id}
-                    id={c.hostId}
+                    convId={c.id}
+                    userId={c.hostId}
                     name={c.hostName}
                     image={c.hostImage}
                   />

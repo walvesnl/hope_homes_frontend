@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function RequestCard(props) {
+export default function ConversationCard(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -37,13 +37,15 @@ export default function RequestCard(props) {
         }
         action={
           <div>
-            <Button>Open</Button>
+            <NavLink to={`/conversation/${props.convId}`}>
+              <Button>Open</Button>
+            </NavLink>
           </div>
         }
         title={
           <div>
             <NavLink
-              to={`/list/${props.id}`}
+              to={`/list/${props.userId}`}
               style={{
                 color: "black",
                 textDecoration: "none",
