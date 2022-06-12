@@ -18,8 +18,6 @@ import { selectUser } from "../../store/user/selectors";
 import { API_URL } from "../../config/constants";
 import { NavLink } from "react-router-dom";
 
-const pages = ["Connections", "Find"];
-
 const NavBarLoggedIn = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);

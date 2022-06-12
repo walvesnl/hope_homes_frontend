@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { createStyles, makeStyles, Theme } from "@mui/styles";
+import { makeStyles } from "@mui/styles";
 import Paper from "@mui/material/Paper";
 import { TextInput } from "../../components/Chat/TextInput";
 import { MessageLeft, MessageRight } from "../../components/Chat/Message";
@@ -109,53 +109,56 @@ export default function Conversation() {
 
   return (
     <div className={classes.container}>
-      <Paper className={classes.paper} zdepth={2}>
-        <Paper id="style-1" className={classes.messagesBody}>
-          {getMessages ? (
-            getMessages.map((m) => {
-              if (user.id === m.senderId) {
-                return (
-                  <MessageRight
-                    key={m.id}
-                    message={m.body}
-                    timestamp="MM/DD 00:00"
-                    photoURL=""
-                    displayName=""
-                    avatarDisp={false}
-                  />
-                );
-              } else {
-                return (
-                  <MessageLeft
-                    key={m.id}
-                    message={m.body}
-                    timestamp="MM/DD 00:00"
-                    photoURL={
-                      isHost
-                        ? `${API_URL}/${conv.seekerImage}`
-                        : `${API_URL}/${conv.hostImage}`
-                    }
-                    displayName={
-                      isHost ? `${conv.seekerName}` : `${conv.hostName}`
-                    }
-                    avatarDisp={true}
-                  />
-                );
-              }
-            })
-          ) : (
-            <p>Loading...</p>
-          )}
+      {user &&
+      conv &&
+      (user.id === conv.seekerId || user.id === conv.hostId) ? (
+        <Paper className={classes.paper} zdepth={2}>
+          <Paper id="style-1" className={classes.messagesBody}>
+            {getMessages ? (
+              getMessages.map((m) => {
+                if (user.id === m.senderId) {
+                  return (
+                    <MessageRight
+                      key={m.id}
+                      message={m.body}
+                      timestamp="MM/DD 00:00"
+                      photoURL=""
+                      displayName=""
+                      avatarDisp={false}
+                    />
+                  );
+                } else {
+                  return (
+                    <MessageLeft
+                      key={m.id}
+                      message={m.body}
+                      timestamp="MM/DD 00:00"
+                      photoURL={
+                        isHost
+                          ? `${API_URL}/${conv.seekerImage}`
+                          : `${API_URL}/${conv.hostImage}`
+                      }
+                      displayName={
+                        isHost ? `${conv.seekerName}` : `${conv.hostName}`
+                      }
+                      avatarDisp={true}
+                    />
+                  );
+                }
+              })
+            ) : (
+              <p>Loading...</p>
+            )}
+          </Paper>
+          <TextInput
+            valueProps={!message ? "" : message.body}
+            onChangeProps={changeMess}
+          />
+          <Button variant="contained" color="primary" onClick={sendMessage}>
+            <SendIcon />
+          </Button>
         </Paper>
-        <TextInput
-          valueProps={!message ? "" : message.body}
-          onChangeProps={changeMess}
-          onClickProps={sendMessage}
-        />
-        <Button variant="contained" color="primary" onClick={sendMessage}>
-          <SendIcon />
-        </Button>
-      </Paper>
+      ) : null}
     </div>
   );
 }
