@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { makeStyles } from "@mui/styles";
 import Paper from "@mui/material/Paper";
 import { TextInput } from "../../components/Chat/TextInput";
@@ -64,6 +64,7 @@ export default function Conversation() {
 
   useEffect(() => {
     setMessages(messages);
+    scrollToBottom();
   }, [messages]);
 
   useEffect(() => {
@@ -80,9 +81,16 @@ export default function Conversation() {
     }
   }, [parsedId, user]);
 
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   useEffect(() => {
     socket.on("message", (message) => {
       setMessages([...getMessages, message]);
+      scrollToBottom();
     });
   });
 
@@ -149,6 +157,7 @@ export default function Conversation() {
             ) : (
               <p>Loading...</p>
             )}
+            <div ref={messagesEndRef} />
           </Paper>
           <TextInput
             valueProps={!message ? "" : message.body}

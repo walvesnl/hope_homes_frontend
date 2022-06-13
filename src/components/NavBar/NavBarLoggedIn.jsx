@@ -61,7 +61,12 @@ const NavBarLoggedIn = () => {
                   textDecoration: "none",
                 }}
               >
-                HOPE HOMES
+                <img
+                  src="https://i.ibb.co/zhYX2mj/Hope-1-1.png"
+                  alt="Hope-1-1"
+                  border="0"
+                  style={{ maxWidth: "140px", maxHeight: "auto" }}
+                />
               </Typography>
 
               <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
