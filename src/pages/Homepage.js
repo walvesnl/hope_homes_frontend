@@ -1,7 +1,11 @@
 import { Button } from "@mui/material";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { selectToken } from "../store/user/selectors";
 
 export default function Homepage() {
+  const token = useSelector(selectToken);
+
   return (
     <div className="homepage">
       <div className="homepage-body">
@@ -13,8 +17,7 @@ export default function Homepage() {
         />
         <p className="homepage-text">
           Every year, thousands of people are forced to leave their home
-          countries against their will, often leaving all their loved ones
-          behind.
+          countries against their will, often having no place to go.
           <br />
           <br />
           Hope Homes is a platform to help connect refugees looking for
@@ -29,12 +32,39 @@ export default function Homepage() {
         </p>
       </div>
 
-      <Link to="/signuph">
-        <Button variant="contained">Host a refugee</Button>
-      </Link>
-      <Link to="/signups">
-        <Button variant="contained">Find a Hope Home</Button>
-      </Link>
+      <div>
+        {token === null ? (
+          <div>
+            <Link to="/signuph" className="homepage-button">
+              <Button
+                variant="contained"
+                sx={{ fontFamily: "Merriweather", backgroundColor: "#002366" }}
+              >
+                Host a refugee
+              </Button>
+            </Link>
+            <Link to="/signups" className="homepage-button">
+              <Button
+                variant="contained"
+                sx={{ fontFamily: "Merriweather", backgroundColor: "#002366" }}
+              >
+                Find a Hope Home
+              </Button>
+            </Link>{" "}
+          </div>
+        ) : (
+          <div>
+            <Link to="/connections" className="homepage-button">
+              <Button
+                variant="contained"
+                sx={{ fontFamily: "Merriweather", backgroundColor: "#002366" }}
+              >
+                Your Connections
+              </Button>
+            </Link>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

@@ -2,7 +2,7 @@ import axios from "axios";
 import { appLoading, appDoneLoading, setMessage } from "../appState/slice";
 import { showMessageWithTimeout } from "../appState/actions";
 import { loginSuccess, logOut, tokenStillValid } from "./slice";
-import { API_URL } from "../../config/constants";
+import { apiUrl } from "../../config/constants";
 import { selectToken } from "./selectors";
 import { clearList } from "../list/slice";
 
@@ -32,7 +32,7 @@ export const signUp = (
       data.append("country", country);
       data.append("isHost", isHost);
 
-      const response = await axios.post(`${API_URL}/auth/signup`, data, {
+      const response = await axios.post(`${apiUrl}/auth/signup`, data, {
         headers: {
           "Content-type": "multipart/form-data",
         },
@@ -72,7 +72,7 @@ export const login = (email, password) => {
   return async (dispatch, getState) => {
     dispatch(appLoading());
     try {
-      const response = await axios.post(`${API_URL}/auth/login`, {
+      const response = await axios.post(`${apiUrl}/auth/login`, {
         email,
         password,
       });
@@ -104,7 +104,7 @@ export const getUserWithStoredToken = () => {
     try {
       // if we do have a token,
       // check wether it is still valid or if it is expired
-      const response = await axios.get(`${API_URL}/auth/me`, {
+      const response = await axios.get(`${apiUrl}/auth/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -133,7 +133,7 @@ export const newRequest = (id) => {
       dispatch(appLoading());
 
       const response = await axios.post(
-        `${API_URL}/request`,
+        `${apiUrl}/request`,
         { receiverId: id },
         {
           headers: {
@@ -163,7 +163,7 @@ export const requestAccepted = (id, name, image) => {
       dispatch(appLoading());
 
       const response = await axios.post(
-        `${API_URL}/conversation`,
+        `${apiUrl}/conversation`,
         { id, name, image },
         {
           headers: {

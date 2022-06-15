@@ -51,9 +51,18 @@
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
 }
 
 .homepage-text {
   max-width: 400px;
   text-align: left;
+  background-color: #ffcf36;
+  padding: 40px;
+}
+
+.homepage-button {
+  margin: 20px;
+
+  text-decoration: none;
 }

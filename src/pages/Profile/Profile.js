@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { API_URL } from "../../config/constants";
+import { apiUrl } from "../../config/constants";
 import { selectUser } from "../../store/user/selectors";
 
 export default function Profile() {
@@ -11,7 +11,7 @@ export default function Profile() {
         <div>
           <h1>Your Profile</h1>
           <img
-            src={`${API_URL}/${user.image}`}
+            src={`${apiUrl}/${user.image}`}
             alt="Your face"
             style={{ maxWidth: 300, maxHeight: "auto" }}
           />

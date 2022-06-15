@@ -1,6 +1,6 @@
 import axios from "axios";
 import { appLoading, appDoneLoading } from "../appState/slice";
-import { API_URL } from "../../config/constants";
+import { apiUrl } from "../../config/constants";
 import { fetchList, fetchOne } from "./slice";
 
 export const getList = () => {
@@ -8,7 +8,7 @@ export const getList = () => {
     dispatch(appLoading());
     try {
       const token = getState().user.token;
-      const response = await axios.get(`${API_URL}/list`, {
+      const response = await axios.get(`${apiUrl}/list`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -33,7 +33,7 @@ export const getOne = (id) => {
     dispatch(appLoading());
     try {
       const token = getState().user.token;
-      const response = await axios.get(`${API_URL}/list/${id}`, {
+      const response = await axios.get(`${apiUrl}/list/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -13,7 +13,7 @@ export default function Connections() {
   const isHost = useSelector(selectHost);
 
   return (
-    <div>
+    <div className="list">
       {requests !== null ? (
         <div>
           <h2>Requests received</h2>

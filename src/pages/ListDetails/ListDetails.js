@@ -3,8 +3,10 @@ import { getOne } from "../../store/list/actions";
 import { useSelector, useDispatch } from "react-redux";
 import { selectOne } from "../../store/list/selectors";
 import { useParams } from "react-router-dom";
-import { API_URL } from "../../config/constants";
+import { apiUrl } from "../../config/constants";
+import Geocode from "react-geocode";
 
+Geocode.setApiKey("AIzaSyDD6jpgD0k81Hh1MAZEa0AkqGIYRp4v_yE");
 export default function ListDetails() {
   const { id } = useParams();
   const user = useSelector(selectOne);
@@ -14,14 +16,25 @@ export default function ListDetails() {
     dispatch(getOne(id));
   }, [dispatch, id]);
 
-  console.log(user);
+  if (user !== null && user.isHost === true) {
+    Geocode.fromAddress(`${user.address}, ${user.city}, ${user.country}`).then(
+      (response) => {
+        const { lat, lng } = response.results[0].geometry.location;
+        console.log(lat, lng);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+
   return (
     <div>
       {user !== null ? (
         <div>
           <h1>{user.name}'s Profile</h1>
           <img
-            src={`${API_URL}/${user.image}`}
+            src={`${apiUrl}/${user.image}`}
             style={{ maxWidth: 300, maxHeight: "auto" }}
             alt="qsaco"
           />

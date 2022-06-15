@@ -5,18 +5,21 @@ import { useSelector } from "react-redux";
 
 import ListCard from "../../components/ListCard/ListCard";
 import { selectList } from "../../store/list/selectors";
+import { selectHost } from "../../store/user/selectors";
+import "./styles.css";
 
 export default function List() {
   const dispatch = useDispatch();
   const list = useSelector(selectList);
+  const isHost = useSelector(selectHost);
 
   useEffect(() => {
     dispatch(getList());
   }, [dispatch]);
 
   return (
-    <div>
-      <h1>List</h1>
+    <div className="list">
+      <h1>List of {isHost === true ? "Home Seekers" : "Hosts"}</h1>
       {list ? (
         list.map((l) => {
           return (

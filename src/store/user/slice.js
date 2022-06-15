@@ -19,6 +19,8 @@ export const userSlice = createSlice({
       state.profile = action.payload.user;
       state.isHost = action.payload.user.isHost;
       state.reqReceived = action.payload.user.receiver;
+      state.reqSent = action.payload.user.sender;
+
       if (action.payload.user.isHost === true) {
         state.conversations = action.payload.user.host;
       } else {
@@ -31,17 +33,23 @@ export const userSlice = createSlice({
       state.profile = null;
       state.isHost = null;
       state.reqReceived = null;
+      state.reqSent = null;
       state.conversations = null;
     },
     tokenStillValid: (state, action) => {
       state.profile = action.payload.user;
       state.isHost = action.payload.user.isHost;
       state.reqReceived = action.payload.user.receiver;
+      state.reqSent = action.payload.user.sender;
+
       if (action.payload.user.isHost === true) {
         state.conversations = action.payload.user.host;
       } else {
         state.conversations = action.payload.user.seeker;
       }
+    },
+    requestSent: (state, action) => {
+      state.reqSent = [...state.reqSent, action.payload];
     },
   },
 });

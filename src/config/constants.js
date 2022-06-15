@@ -251,8 +251,8 @@ const countryList = [
   "Åland Islands",
 ];
 
-const API_URL = "http://localhost:4000";
+const apiUrl = process.env.API_URL || "http://localhost:4000";
 
 const DEFAULT_MESSAGE_TIMEOUT = 3000;
 
-export { countryList, API_URL, DEFAULT_MESSAGE_TIMEOUT };
+export { countryList, apiUrl, DEFAULT_MESSAGE_TIMEOUT };

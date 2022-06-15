@@ -8,7 +8,7 @@ import { getConversations } from "../../store/conversation/actions";
 import { useParams } from "react-router-dom";
 import { selectConv, selectMessages } from "../../store/conversation/selectors";
 import { selectHost, selectUser } from "../../store/user/selectors";
-import { API_URL } from "../../config/constants";
+import { apiUrl } from "../../config/constants";
 import io from "socket.io-client";
 import { Button } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
@@ -74,7 +74,7 @@ export default function Conversation() {
       socket.emit("join", { userId: user.id, conversationId: parsedId });
 
       return () => {
-        socket.emit("disconnect");
+        socket.disconnect();
 
         socket.off();
       };
@@ -143,8 +143,8 @@ export default function Conversation() {
                       timestamp="MM/DD 00:00"
                       photoURL={
                         isHost
-                          ? `${API_URL}/${conv.seekerImage}`
-                          : `${API_URL}/${conv.hostImage}`
+                          ? `${apiUrl}/${conv.seekerImage}`
+                          : `${apiUrl}/${conv.hostImage}`
                       }
                       displayName={
                         isHost ? `${conv.seekerName}` : `${conv.hostName}`

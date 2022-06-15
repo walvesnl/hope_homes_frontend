@@ -3,17 +3,17 @@ import { makeStyles } from "@mui/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { API_URL } from "../../config/constants";
+import { apiUrl } from "../../config/constants";
 import { Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { newRequest } from "../../store/user/actions";
 
 const useStyles = makeStyles({
   root: {
+    minWidth: 600,
     maxWidth: 700,
     height: 150,
+    margin: 20,
   },
   avatar: {
     width: 100,
@@ -31,7 +31,7 @@ export default function ListCard(props) {
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
             <img
-              src={`${API_URL}/${props.image}`}
+              src={`${apiUrl}/${props.image}`}
               alt="none"
               style={{ maxWidth: 130, maxHeight: 130 }}
             />
@@ -47,7 +47,7 @@ export default function ListCard(props) {
           </Button>
         }
         title={props.name}
-        subheader={props.description}
+        subheader={`${props.description} `}
       />
     </Card>
   );

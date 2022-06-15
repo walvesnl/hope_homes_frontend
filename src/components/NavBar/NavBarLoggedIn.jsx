@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../store/user/slice";
 import { clearList } from "../../store/list/slice";
 import { selectUser } from "../../store/user/selectors";
-import { API_URL } from "../../config/constants";
+import { apiUrl } from "../../config/constants";
 import { NavLink } from "react-router-dom";
 
 const NavBarLoggedIn = () => {
@@ -125,7 +125,12 @@ const NavBarLoggedIn = () => {
                   textDecoration: "none",
                 }}
               >
-                HOPE HOMES
+                <img
+                  src="https://i.ibb.co/zhYX2mj/Hope-1-1.png"
+                  alt="Hope-1-1"
+                  border="0"
+                  style={{ maxWidth: "140px", maxHeight: "auto" }}
+                />
               </Typography>
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
                 <NavLink
@@ -158,7 +163,7 @@ const NavBarLoggedIn = () => {
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar
                       alt="Avatar"
-                      src={user ? `${API_URL}/${user.image}` : null}
+                      src={user ? `${apiUrl}/${user.image}` : null}
                     />
                   </IconButton>
                 </Tooltip>
