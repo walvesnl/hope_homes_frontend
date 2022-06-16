@@ -1,12 +1,20 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import ReactDOM from "react-dom";
 import { getOne } from "../../store/list/actions";
 import { useSelector, useDispatch } from "react-redux";
 import { selectOne } from "../../store/list/selectors";
 import { useParams } from "react-router-dom";
 import { apiUrl } from "../../config/constants";
 import Geocode from "react-geocode";
+import { MapContainer, TileLayer, useMap } from "react-leaflet";
+import { MYKEY } from "../../key";
+import { Marker } from "react-leaflet/Marker";
+import { Popup } from "react-leaflet/Popup";
+import { Circle } from "react-leaflet/Circle";
+import "./styles.css";
 
-Geocode.setApiKey("AIzaSyDD6jpgD0k81Hh1MAZEa0AkqGIYRp4v_yE");
+Geocode.setApiKey(MYKEY);
+
 export default function ListDetails() {
   const { id } = useParams();
   const user = useSelector(selectOne);
@@ -16,30 +24,82 @@ export default function ListDetails() {
     dispatch(getOne(id));
   }, [dispatch, id]);
 
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
+
   if (user !== null && user.isHost === true) {
     Geocode.fromAddress(`${user.address}, ${user.city}, ${user.country}`).then(
       (response) => {
         const { lat, lng } = response.results[0].geometry.location;
-        console.log(lat, lng);
+        if (lat && lng) {
+          setLatitude(lat);
+          setLongitude(lng);
+        }
       },
       (error) => {
         console.error(error);
       }
     );
   }
+  const position = [latitude, longitude];
+  console.log(position);
 
   return (
     <div>
       {user !== null ? (
-        <div>
+        <div className="profile">
           <h1>{user.name}'s Profile</h1>
-          <img
-            src={`${apiUrl}/${user.image}`}
-            style={{ maxWidth: 300, maxHeight: "auto" }}
-            alt="qsaco"
-          />
-          <p>{user.name}</p>
-          <p>{user.description}</p>
+          <div className="profile-body">
+            <img
+              className="profile-image"
+              src={`${apiUrl}/${user.image}`}
+              alt="qsaco"
+            />
+            <div className="desc">
+              <p>
+                <strong>Name:</strong>
+                {user.name}
+              </p>
+              <br />
+              <br />
+              <p>
+                <strong>Who is {user.name}?</strong>
+              </p>
+              <p>{user.description}</p>
+              <br />
+              <br />
+              <p>
+                <strong>Country:</strong>
+                {user.country}
+              </p>
+            </div>
+
+            {latitude !== "" && longitude !== "" ? (
+              <MapContainer
+                center={position}
+                zoom={13}
+                scrollWheelZoom={false}
+                style={{
+                  height: "400px",
+                  width: "400px",
+
+                  backgroundColor: "red",
+                  marginTop: "80px",
+                  marginBottom: "90px",
+                }}
+              >
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <Circle center={position} radius={400}>
+                  <Popup>
+                    {user.name}'s residence <br />
+                  </Popup>
+                </Circle>
+              </MapContainer>
+            ) : null}
+          </div>
         </div>
       ) : (
         <p>Loading...</p>
