@@ -1,7 +1,14 @@
 import axios from "axios";
 import { appLoading, appDoneLoading, setMessage } from "../appState/slice";
 import { showMessageWithTimeout } from "../appState/actions";
-import { loginSuccess, logOut, tokenStillValid } from "./slice";
+import {
+  deleteRequest,
+  loginSuccess,
+  logOut,
+  newConversation,
+  requestSent,
+  tokenStillValid,
+} from "./slice";
 import { apiUrl } from "../../config/constants";
 import { selectToken } from "./selectors";
 import { clearList } from "../list/slice";
@@ -142,7 +149,7 @@ export const newRequest = (id) => {
         }
       );
 
-      console.log(response);
+      dispatch(requestSent(response.data.newRequest));
 
       dispatch(appDoneLoading());
     } catch (error) {
@@ -156,7 +163,7 @@ export const newRequest = (id) => {
   };
 };
 
-export const requestAccepted = (id, name, image) => {
+export const requestAccepted = (id, name, image, requestId) => {
   return async (dispatch, getState) => {
     try {
       const token = getState().user.token;
@@ -164,7 +171,7 @@ export const requestAccepted = (id, name, image) => {
 
       const response = await axios.post(
         `${apiUrl}/conversation`,
-        { id, name, image },
+        { id, name, image, requestId },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -172,8 +179,28 @@ export const requestAccepted = (id, name, image) => {
         }
       );
 
+      dispatch(newConversation(response.data.newConversation));
+      dispatch(appDoneLoading());
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data.message);
+      } else {
+        console.log(error.message);
+      }
+      dispatch(appDoneLoading());
+    }
+  };
+};
+
+export const denyRequest = (id) => {
+  return async (dispatch, getState) => {
+    try {
+      dispatch(appLoading());
+      const response = await axios.delete(`${apiUrl}/request/delete/${id}`);
+
       console.log(response);
 
+      dispatch(deleteRequest(id));
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {

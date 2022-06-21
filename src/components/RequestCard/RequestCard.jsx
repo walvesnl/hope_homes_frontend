@@ -7,7 +7,8 @@ import { apiUrl } from "../../config/constants";
 import { Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { requestAccepted } from "../../store/user/actions";
+import { denyRequest, requestAccepted } from "../../store/user/actions";
+import { deleteRequest } from "../../store/user/slice";
 
 const useStyles = makeStyles({
   root: {
@@ -41,13 +42,27 @@ export default function RequestCard(props) {
         action={
           <div>
             <Button
-              onClick={() =>
-                dispatch(requestAccepted(props.id, props.name, props.image))
-              }
+              onClick={() => {
+                dispatch(
+                  requestAccepted(
+                    props.id,
+                    props.name,
+                    props.image,
+                    props.requestId
+                  )
+                );
+                dispatch(deleteRequest(props.requestId));
+              }}
             >
               Accept
             </Button>
-            <Button>Deny </Button>
+            <Button
+              onClick={() => {
+                dispatch(denyRequest(props.requestId));
+              }}
+            >
+              Deny{" "}
+            </Button>
           </div>
         }
         title={

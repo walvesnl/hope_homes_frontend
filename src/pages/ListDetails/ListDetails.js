@@ -57,7 +57,7 @@ export default function ListDetails() {
             />
             <div className="desc">
               <p>
-                <strong>Name:</strong>
+                <strong>Name: </strong>
                 {user.name}
               </p>
               <br />
@@ -69,35 +69,38 @@ export default function ListDetails() {
               <br />
               <br />
               <p>
-                <strong>Country:</strong>
+                <strong>Country: </strong>
                 {user.country}
               </p>
             </div>
 
             {latitude !== "" && longitude !== "" ? (
-              <MapContainer
-                center={position}
-                zoom={13}
-                scrollWheelZoom={false}
-                style={{
-                  height: "400px",
-                  width: "400px",
+              <div className="map">
+                <h3 style={{ marginTop: 50 }}>{user.name}'s Residence</h3>
+                <MapContainer
+                  center={position}
+                  zoom={13}
+                  scrollWheelZoom={false}
+                  style={{
+                    height: "400px",
+                    width: "400px",
 
-                  backgroundColor: "red",
-                  marginTop: "80px",
-                  marginBottom: "90px",
-                }}
-              >
-                <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                <Circle center={position} radius={400}>
-                  <Popup>
-                    {user.name}'s residence <br />
-                  </Popup>
-                </Circle>
-              </MapContainer>
+                    backgroundColor: "red",
+                    marginTop: "80px",
+                    marginBottom: "90px",
+                  }}
+                >
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  <Circle center={position} radius={400}>
+                    <Popup>
+                      {user.name}'s residence <br />
+                    </Popup>
+                  </Circle>
+                </MapContainer>
+              </div>
             ) : null}
           </div>
         </div>

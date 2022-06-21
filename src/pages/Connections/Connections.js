@@ -22,6 +22,7 @@ export default function Connections() {
               return (
                 <RequestCard
                   key={r.id}
+                  requestId={r.id}
                   id={r.senderId}
                   name={r.senderName}
                   image={r.senderImage}

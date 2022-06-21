@@ -118,7 +118,6 @@ const NavBarLoggedOut = () => {
               style={{ maxWidth: "140px", maxHeight: "auto" }}
             />
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}></Box>
           <Box
             sx={{
               flexGrow: 1,
@@ -135,16 +134,22 @@ const NavBarLoggedOut = () => {
               </Button>
             </NavLink>
           </Box>
-          <Box sx={{ flexGrow: 0 }}>
+          {/* <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {/* <Avatar
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  Login
+                </Button> */}
+          {/* <Avatar
                   alt="Avatar"
                   src={user ? `${API_URL}/${user.image}` : null}
                 /> */}
-              </IconButton>
-            </Tooltip>
-          </Box>
+          {/* </IconButton>
+            </Tooltip> */}
+          {/* </Box> */}
         </Toolbar>
       </Container>
     </AppBar>
