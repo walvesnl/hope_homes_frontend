@@ -146,7 +146,11 @@ export default function SignupSeeker() {
       <Button
         variant="contained"
         component="label"
-        style={{ width: 150 }}
+        style={{
+          width: 150,
+          fontFamily: "Merriweather",
+          backgroundColor: "#002366",
+        }}
         type="Submit"
         onClick={submitForm}
       >

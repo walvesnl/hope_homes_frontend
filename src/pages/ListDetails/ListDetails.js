@@ -24,6 +24,10 @@ export default function ListDetails() {
     dispatch(getOne(id));
   }, [dispatch, id]);
 
+  useEffect(() => {
+    dispatch(getOne(id));
+  }, [dispatch, id]);
+
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
 

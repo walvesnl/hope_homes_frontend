@@ -18,14 +18,20 @@ export const userSlice = createSlice({
       state.token = action.payload.token;
       state.profile = action.payload.user;
       state.isHost = action.payload.user.isHost;
-      state.reqReceived = action.payload.user.receiver;
-      state.reqSent = action.payload.user.sender;
-
-      if (action.payload.user.isHost === true) {
-        state.conversations = action.payload.user.host;
-      } else {
-        state.conversations = action.payload.user.seeker;
-      }
+      state.reqReceived = action.payload.user.receiver
+        ? action.payload.user.receiver
+        : [];
+      state.reqSent = action.payload.user.sender
+        ? action.payload.user.sender
+        : [];
+      state.conversations =
+        action.payload.user.isHost === true
+          ? action.payload.user.host
+            ? action.payload.user.host
+            : []
+          : action.payload.user.seeker
+          ? action.payload.user.seeker
+          : [];
     },
     logOut: (state, action) => {
       localStorage.removeItem("token");
