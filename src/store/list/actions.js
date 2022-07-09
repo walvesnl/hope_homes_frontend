@@ -13,7 +13,7 @@ export const getList = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response);
+
       dispatch(fetchList(response.data));
 
       dispatch(appDoneLoading());

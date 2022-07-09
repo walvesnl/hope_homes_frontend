@@ -18,9 +18,12 @@ export const listSlice = createSlice({
     fetchOne: (state, action) => {
       state.detail_list = action.payload;
     },
+    clearOne: (state, action) => {
+      state.detail_list = null;
+    },
   },
 });
 
-export const { fetchList, clearList, fetchOne } = listSlice.actions;
+export const { fetchList, clearList, fetchOne, clearOne } = listSlice.actions;
 
 export default listSlice.reducer;

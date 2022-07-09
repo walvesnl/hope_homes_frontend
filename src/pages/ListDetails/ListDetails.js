@@ -1,17 +1,16 @@
-import React, { useEffect, useState, useContext } from "react";
-import ReactDOM from "react-dom";
+import React, { useEffect, useState } from "react";
 import { getOne } from "../../store/list/actions";
 import { useSelector, useDispatch } from "react-redux";
 import { selectOne } from "../../store/list/selectors";
 import { useParams } from "react-router-dom";
 import { apiUrl } from "../../config/constants";
 import Geocode from "react-geocode";
-import { MapContainer, TileLayer, useMap } from "react-leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
 import { MYKEY } from "../../key";
-import { Marker } from "react-leaflet/Marker";
 import { Popup } from "react-leaflet/Popup";
 import { Circle } from "react-leaflet/Circle";
 import "./styles.css";
+import { clearOne } from "../../store/list/slice";
 
 Geocode.setApiKey(MYKEY);
 
@@ -20,21 +19,23 @@ export default function ListDetails() {
   const user = useSelector(selectOne);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getOne(id));
-  }, [dispatch, id]);
-
-  useEffect(() => {
-    dispatch(getOne(id));
-  }, [dispatch, id]);
-
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
+
+  useEffect(() => {
+    dispatch(getOne(id));
+
+    return () => {
+      dispatch(clearOne());
+    };
+  }, [dispatch, id]);
 
   if (user !== null && user.isHost === true) {
     Geocode.fromAddress(`${user.address}, ${user.city}, ${user.country}`).then(
       (response) => {
+        console.log("the res", response);
         const { lat, lng } = response.results[0].geometry.location;
+
         if (lat && lng) {
           setLatitude(lat);
           setLongitude(lng);
@@ -45,7 +46,8 @@ export default function ListDetails() {
       }
     );
   }
-  const position = [latitude, longitude];
+
+  let position = [latitude, longitude];
   console.log(position);
 
   return (
@@ -81,6 +83,8 @@ export default function ListDetails() {
             {latitude !== "" && longitude !== "" ? (
               <div className="map">
                 <h3 style={{ marginTop: 50 }}>{user.name}'s Residence</h3>
+                {console.log("this pos", position)}
+
                 <MapContainer
                   center={position}
                   zoom={13}
@@ -88,7 +92,6 @@ export default function ListDetails() {
                   style={{
                     height: "400px",
                     width: "400px",
-
                     backgroundColor: "red",
                     marginTop: "80px",
                     marginBottom: "90px",

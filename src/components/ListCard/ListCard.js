@@ -36,8 +36,6 @@ export default function ListCard(props) {
     }
   });
 
-  console.log("receiver", ids);
-
   const actionButton = ids.includes(props.id) ? (
     <Button>Request sent!</Button>
   ) : (
