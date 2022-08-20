@@ -109,6 +109,8 @@ const NavBarLoggedOut = () => {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
+              justifyContent: "center",
+              marginRight: "0px",
             }}
           >
             <img
@@ -121,7 +123,7 @@ const NavBarLoggedOut = () => {
           <Box
             sx={{
               flexGrow: 1,
-              display: { xs: "none", md: "flex" },
+              display: { xs: "flex", md: "flex" },
               justifyContent: "flex-end",
             }}
           >

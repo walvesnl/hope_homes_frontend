@@ -44,7 +44,7 @@ const NavBarLoggedIn = () => {
     <div>
       {user ? (
         <AppBar position="static" style={{ backgroundColor: "#ffcf36" }}>
-          <Container maxWidth="xl">
+          <Container style={{ width: "100%", maxWidth: "none" }}>
             <Toolbar disableGutters>
               <Typography
                 variant="h6"
